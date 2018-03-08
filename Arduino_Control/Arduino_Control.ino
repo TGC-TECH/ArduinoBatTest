@@ -38,12 +38,12 @@
    Serial.println("[H");
    // End ANSI terminal codes
    
-   Serial.println("--------------------");
-   Serial.println("BATTERY TESTER by T.Cowles");
+   Serial.println("-----------------------------------------------------------");
+   Serial.println("BATTERY TESTER by T.Cowles Released under the GPL v3");
    Serial.print("Maximum readable Battery Voltage: ");
    Serial.print((int)(vPow / (r2 / (r1 + r2))));
    Serial.println("V");
-   Serial.println("--------------------");
+   Serial.println("-----------------------------------------------------------");
    Serial.println("");
    
    delay(2000);
@@ -64,6 +64,8 @@
    Serial.println(v2);
    if (v2 >= vmin);
    {
+    Serial.println("Cut Off Voltage =");
+    Serial.println(vmin);
     sec = sec + 1; 
     delay (1000);
     digitalWrite(mosfet, HIGH);
@@ -78,6 +80,27 @@
     Serial.println("Battery Discharged:");
     Serial.println("Time in hours =");
     Serial.println(hour);
-    Serial.println("Capcity for a .5 amp load =");
+    Serial.println("Capcity in Milliamp hours for a .5 amp load =");
+    Serial.println(hour * 500);
+    Serial.println("Capcity for a 1 amp load =");
+    Serial.println(hour * 1000);
+    Serial.println("Capcity for a 2 amp load =");
+    Serial.println(hour * 2000);
+    if (plus1State == HIGH);
+    {
+      vmin = vmin + 1;
+    }
+    if (pluspoint1State == HIGH);
+    {
+      vmin = vmin + .1;
+    }
+    if (minus1State == HIGH);
+   {
+    vmin = vmin - 1;
+   }
+   if (minuspoint1State == HIGH);
+   {
+    vmin = vmin - .1;
+   }
    }
  }
