@@ -15,7 +15,6 @@
  int pluspoint1State = 0;
  int minus1State = 0;
  int minuspoint1State = 0;
- int enableState = 0;
  const int plus1 = 12;
  const int pluspoint1 = 11;
  const int minus1 = 10;
@@ -30,7 +29,7 @@
    pinMode(minus1, INPUT);
    pinMode(minuspoint1, INPUT);
    pinMode(mosfet, OUTPUT);
-   pinMode(enable,INPUT);
+   pinMode(enable,OUTPUT);
    
    // Send ANSI terminal codes
    Serial.print("\x1B");
@@ -51,6 +50,10 @@
  }
  
  void loop() {
+  plus1State = digitalRead(plus1);
+  pluspoint1State = digitalRead(pluspoint1);
+  minus1State = digitalRead(minus1);
+ minuspoint1State = digitalRead(minuspoint1);
    float v = (analogRead(0) * vPow) / 1024.0;
    float v2 = v / (r2 / (r1 + r2));
    
@@ -59,4 +62,22 @@
    Serial.print("[1A");
    // End ANSI terminal codes
    Serial.println(v2);
+   if (v2 >= vmin);
+   {
+    sec = sec + 1; 
+    delay (1000);
+    digitalWrite(mosfet, HIGH);
+    digitalWrite(enable, HIGH);
+     Serial.println("Time in sec");
+     Serial.println(sec);
+   }
+   if (v2 < vmin);
+   {
+    digitalWrite(mosfet, LOW);
+    hour = sec / 3600;
+    Serial.println("Battery Discharged:");
+    Serial.println("Time in hours =");
+    Serial.println(hour);
+    Serial.println("Capcity for a .5 amp load =");
+   }
  }
