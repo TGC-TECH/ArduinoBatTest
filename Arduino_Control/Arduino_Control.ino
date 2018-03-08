@@ -1,21 +1,27 @@
 /*
   *Voltage reading based on
   * blog.Udemy.com/arduino-voltmeter/
-  * Amps Pulled * Hours ran 
+  * Capcity=Amps Pulled from constent current source * Hours ran 
   * hours = secs/3600
   */
  
  float vPow = 4.7;
  float r1 = 100000;
  float r2 = 10000;
- float vmin = 0
- float hour = 0
- int sec = 0
- int plus1 = 12
- int pluspoint1 = 11
- int minus1 = 10
- int minuspoint1 = 9
- int mosfet = 8 
+ float vmin = 0;
+ float hour = 0;
+ int sec = 0;
+ int plus1State = 0;
+ int pluspoint1State = 0;
+ int minus1State = 0;
+ int minuspoint1State = 0;
+ int enableState = 0;
+ const int plus1 = 12;
+ const int pluspoint1 = 11;
+ const int minus1 = 10;
+ const int minuspoint1 = 9;
+ const int mosfet = 8;
+ const int enable = 7;
  
  void setup() {
    Serial.begin(9600);
@@ -23,7 +29,8 @@
    pinMode(pluspoint1, INPUT);
    pinMode(minus1, INPUT);
    pinMode(minuspoint1, INPUT);
-   pinMode(Mosfet, OUTPUT);
+   pinMode(mosfet, OUTPUT);
+   pinMode(enable,INPUT);
    
    // Send ANSI terminal codes
    Serial.print("\x1B");
@@ -52,5 +59,4 @@
    Serial.print("[1A");
    // End ANSI terminal codes
    Serial.println(v2);
-   if ()
  }
