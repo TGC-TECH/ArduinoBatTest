@@ -4,6 +4,14 @@
   * Capcity=Amps Pulled from constent current source * Hours ran 
   * hours = secs/3600
   */
+
+ #include <Wire.h>
+#include <Adafruit_SSD1306.h>
+#include <Adafruit_GFX.h>
+#define OLED_ADDR   0x3C //Change this value to match your i2c address 
+
+Adafruit_SSD1306 display(-1);
+
  
  float vPow = 4.7;
  float r1 = 100000;
@@ -30,6 +38,9 @@
    pinMode(minuspoint1, INPUT);
    pinMode(mosfet, OUTPUT);
    pinMode(enable,OUTPUT);
+   display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR);
+  display.clearDisplay();
+  display.display();
    
    // Send ANSI terminal codes
    Serial.print("\x1B");
@@ -89,18 +100,22 @@
     if (plus1State == HIGH);
     {
       vmin = vmin + 1;
+      delay (50);
     }
     if (pluspoint1State == HIGH);
     {
       vmin = vmin + .1;
+      delay (50);
     }
     if (minus1State == HIGH);
    {
     vmin = vmin - 1;
+    delay (50);
    }
    if (minuspoint1State == HIGH);
    {
     vmin = vmin - .1;
+    delay (50);
    }
    }
  }
