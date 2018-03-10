@@ -49,12 +49,11 @@ Adafruit_SSD1306 display(-1);
    Serial.println("[H");
    // End ANSI terminal codes
    
-   Serial.println("-----------------------------------------------------------");
+  
    Serial.println("BATTERY TESTER by T.Cowles Released under the GPL v3");
    Serial.print("Maximum readable Battery Voltage: ");
    Serial.print((int)(vPow / (r2 / (r1 + r2))));
    Serial.println("V");
-   Serial.println("-----------------------------------------------------------");
    Serial.println("");
    
    delay(2000);
@@ -75,14 +74,23 @@ Adafruit_SSD1306 display(-1);
    Serial.println(v2);
    if (v2 >= vmin);
    {
-    Serial.println("Cut Off Voltage =");
+    Serial.print("Cut Off Voltage = ");
     Serial.println(vmin);
     sec = sec + 1; 
     delay (1000);
     digitalWrite(mosfet, HIGH);
     digitalWrite(enable, HIGH);
-     Serial.println("Time in sec");
+     Serial.print("Time in sec = ");
      Serial.println(sec);
+      display.clearDisplay();
+       display.setTextSize(3);
+  display.setTextColor(WHITE);
+  display.setCursor(27,0);
+  display.print("Time in sec =");
+  display.setCursor(27, 40);
+  display.print(sec);
+
+
    }
    if (v2 < vmin);
    {
@@ -97,25 +105,75 @@ Adafruit_SSD1306 display(-1);
     Serial.println(hour * 1000);
     Serial.println("Capcity for a 2 amp load =");
     Serial.println(hour * 2000);
+    display.clearDisplay();
+   display.setTextSize(3);
+  display.setTextColor(WHITE);
+  display.setCursor(27,0);
+  display.print("Time in hours =");
+  display.setCursor(27, 40);
+  display.print(hour);
+
+  // update display with all of the above graphics
+  display.display();
     if (plus1State == HIGH);
     {
       vmin = vmin + 1;
       delay (50);
+      display.clearDisplay();
+       display.setTextSize(3);
+  display.setTextColor(WHITE);
+  display.setCursor(27,0);
+  display.print("Cut off voltage =");
+  display.setCursor(27, 40);
+  display.print(vmin);
+
+  // update display with all of the above graphics
+  display.display();
     }
     if (pluspoint1State == HIGH);
     {
       vmin = vmin + .1;
       delay (50);
+      display.clearDisplay();
+  display.setTextSize(3);
+  display.setTextColor(WHITE);
+  display.setCursor(27,0);
+  display.print("Cut off voltage =");
+  display.setCursor(27, 40);
+  display.print(vmin);
+
+  // update display with all of the above graphics
+  display.display();
     }
     if (minus1State == HIGH);
    {
     vmin = vmin - 1;
     delay (50);
+    display.clearDisplay();
+     display.setTextSize(3);
+  display.setTextColor(WHITE);
+  display.setCursor(27,0);
+  display.print("Cut off voltage =");
+  display.setCursor(27, 40);
+  display.print(vmin);
+
+  // update display with all of the above graphics
+  display.display();
    }
    if (minuspoint1State == HIGH);
    {
     vmin = vmin - .1;
     delay (50);
+    display.clearDisplay();
+     display.setTextSize(3);
+  display.setTextColor(WHITE);
+  display.setCursor(27,0);
+  display.print("Cut off voltage =");
+  display.setCursor(27, 40);
+  display.print(vmin);
+
+  // update display with all of the above graphics
+  display.display();
    }
    }
  }
