@@ -76,7 +76,19 @@ Adafruit_SSD1306 display(-1);
     digitalWrite(mosfet, HIGH);
      Serial.print("Time in sec = ");
      Serial.println(sec);
-    display.display();
+    display.clearDisplay();
+   display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(27,0);
+  display.print("Running ");
+  display.print(sec);
+  display.setCursor(27,20);
+  display.print("input= ");
+  display.print(v);
+  display.setCursor(27,40);
+  display.print("V Min= ");
+  display.print(vmin);
+ display.display();
     Serial.print(v);
     v = (analogRead(0) * vPow) / 1024.0;
     delay (10);  }
@@ -84,17 +96,17 @@ Adafruit_SSD1306 display(-1);
 
      if (v < vmin) {
     digitalWrite(mosfet, LOW);
-    hour = sec / 3600;
+    hour = sec / 3600.0;
     Serial.print("Time in hours = ");
     Serial.println(hour);
     display.clearDisplay();
-   display.setTextSize(3);
+   display.setTextSize(1);
   display.setTextColor(WHITE);
-  display.setCursor(27,0);
+  display.setCursor(0,0);
+  display.print("Done! Time in Hours = ");
+  display.print(hour);
   display.display(); 
-  delay (10);
-// update display with all of the above graphics
-  display.display();  }
+  delay (1000); }
   
     if (plus1State == HIGH)
     {
