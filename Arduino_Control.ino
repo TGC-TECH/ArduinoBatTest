@@ -63,14 +63,14 @@ Adafruit_SSD1306 display(-1);
   minus1State = digitalRead(minus1);
  minuspoint1State = digitalRead(minuspoint1);
    v = (analogRead(0) * vPow) / 1024.0;
-   float v2 = v;
+   float v2 = v + .02; //Set this to UDEMY VALUE (from link) and confuigure resistor values in variables
    
    // Send ANSI terminal codes
    Serial.print("\x1B");
    Serial.print("[1A");
    // End ANSI terminal codes
    Serial.println(v2);
-   if (v >= vmin) {
+   if (v2 >= vmin) {
     sec = sec + 1; 
     delay (1000);
     digitalWrite(mosfet, HIGH);
@@ -94,11 +94,9 @@ Adafruit_SSD1306 display(-1);
     delay (10);  }
 
 
-     if (v < vmin) {
+     if (v2 < vmin) {
     digitalWrite(mosfet, LOW);
     hour = sec / 3600.0;
-    Serial.print("Time in hours = ");
-    Serial.println(hour);
     display.clearDisplay();
    display.setTextSize(1);
   display.setTextColor(WHITE);
